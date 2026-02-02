@@ -1,11 +1,14 @@
 import { useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Routes, Route } from 'react-router-dom';
 import { useAuth } from '@/lib/auth';
 import { Loader2 } from 'lucide-react';
 import { SidebarProvider } from '@/components/ui/sidebar';
 import { DashboardSidebar } from '@/components/dashboard/DashboardSidebar';
 import { DashboardHeader } from '@/components/dashboard/DashboardHeader';
 import { DashboardContent } from '@/components/dashboard/DashboardContent';
+import Classes from './Classes';
+import Subjects from './Subjects';
+import Timetable from './Timetable';
 
 export default function Dashboard() {
   const { user, isLoading, getPrimaryRole } = useAuth();
@@ -41,7 +44,14 @@ export default function Dashboard() {
         <div className="flex-1 flex flex-col">
           <DashboardHeader />
           <main className="flex-1 p-6 bg-muted/30">
-            <DashboardContent role={role} />
+            <Routes>
+              <Route index element={<DashboardContent role={role} />} />
+              <Route path="classes" element={<Classes />} />
+              <Route path="subjects" element={<Subjects />} />
+              <Route path="timetable" element={<Timetable />} />
+              {/* Placeholder routes for other sections */}
+              <Route path="*" element={<DashboardContent role={role} />} />
+            </Routes>
           </main>
         </div>
       </div>
