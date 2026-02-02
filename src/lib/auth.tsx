@@ -23,9 +23,10 @@ interface AuthContextType {
   session: Session | null;
   profile: Profile | null;
   roles: UserRole[];
+  schoolId: string | null;
   isLoading: boolean;
   signIn: (email: string, password: string) => Promise<{ error: Error | null }>;
-  signUp: (email: string, password: string, fullName: string) => Promise<{ error: Error | null }>;
+  signUp: (email: string, password: string, fullName: string) => Promise<{ error: Error | null; data?: { user: User | null } }>;
   signOut: () => Promise<void>;
   hasRole: (role: AppRole, schoolId?: string) => boolean;
   getPrimaryRole: () => AppRole | null;
@@ -146,6 +147,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         session,
         profile,
         roles,
+        schoolId: profile?.school_id ?? null,
         isLoading,
         signIn,
         signUp,
