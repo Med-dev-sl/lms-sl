@@ -58,35 +58,49 @@ export default function Register() {
     setIsLoading(true);
 
     try {
-      // First, create the school
-      const slug = generateSlug(schoolName);
-      const { data: schoolData, error: schoolError } = await supabase
-        .from('schools')
-        .insert({
-          name: schoolName,
-          slug,
-          email: schoolEmail,
-        })
-        .select()
-        .single();
-
-      if (schoolError) {
-        if (schoolError.code === '23505') {
-          toast.error('A school with this name already exists');
-        } else {
-          toast.error('Failed to create school');
+      // First, sign up the user - this creates the auth user and profile via trigger
+      const { data: signUpData, error: signUpError } = await supabase.auth.signUp({
+        email,
+        password,
+        options: {
+          emailRedirectTo: window.location.origin,
+          data: {
+            full_name: fullName,
+          }
         }
+      });
+
+      if (signUpError) {
+        toast.error(signUpError.message || 'Failed to create account');
         setIsLoading(false);
         return;
       }
 
-      // Sign up the user
-      const { error: signUpError } = await signUp(email, password, fullName);
+      if (!signUpData.user) {
+        toast.error('Failed to create user account');
+        setIsLoading(false);
+        return;
+      }
 
-      if (signUpError) {
-        // Clean up the school if signup fails
-        await supabase.from('schools').delete().eq('id', schoolData.id);
-        toast.error(signUpError.message || 'Failed to create account');
+      // Now create the school and assign the admin role using our secure function
+      const slug = generateSlug(schoolName);
+      const { data: schoolId, error: schoolError } = await supabase
+        .rpc('register_school_with_admin', {
+          _school_name: schoolName,
+          _school_email: schoolEmail,
+          _school_slug: slug,
+          _user_id: signUpData.user.id
+        });
+
+      if (schoolError) {
+        // If school creation fails, we should ideally clean up the user
+        // but Supabase doesn't allow deleting auth users from client
+        if (schoolError.code === '23505') {
+          toast.error('A school with this name already exists. Please try a different name.');
+        } else {
+          console.error('School creation error:', schoolError);
+          toast.error('Failed to create school. Please contact support.');
+        }
         setIsLoading(false);
         return;
       }
@@ -94,6 +108,7 @@ export default function Register() {
       toast.success('Registration successful! Please check your email to verify your account.');
       navigate('/login');
     } catch (error) {
+      console.error('Registration error:', error);
       toast.error('An unexpected error occurred');
       setIsLoading(false);
     }

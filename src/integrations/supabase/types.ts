@@ -144,6 +144,15 @@ export type Database = {
         }
         Returns: boolean
       }
+      register_school_with_admin: {
+        Args: {
+          _school_email: string
+          _school_name: string
+          _school_slug: string
+          _user_id: string
+        }
+        Returns: string
+      }
     }
     Enums: {
       app_role:
