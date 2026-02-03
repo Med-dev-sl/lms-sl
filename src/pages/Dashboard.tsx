@@ -9,6 +9,7 @@ import { DashboardContent } from '@/components/dashboard/DashboardContent';
 import Classes from './Classes';
 import Subjects from './Subjects';
 import Timetable from './Timetable';
+import Students from './Students';
 
 export default function Dashboard() {
   const { user, isLoading, getPrimaryRole } = useAuth();
@@ -49,6 +50,7 @@ export default function Dashboard() {
               <Route path="classes" element={<Classes />} />
               <Route path="subjects" element={<Subjects />} />
               <Route path="timetable" element={<Timetable />} />
+              <Route path="students" element={<Students />} />
               {/* Placeholder routes for other sections */}
               <Route path="*" element={<DashboardContent role={role} />} />
             </Routes>

@@ -181,6 +181,123 @@ export type Database = {
         }
         Relationships: []
       }
+      student_parents: {
+        Row: {
+          created_at: string
+          id: string
+          is_primary_contact: boolean
+          parent_id: string
+          relationship: string
+          student_id: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          is_primary_contact?: boolean
+          parent_id: string
+          relationship?: string
+          student_id: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          is_primary_contact?: boolean
+          parent_id?: string
+          relationship?: string
+          student_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "student_parents_parent_id_fkey"
+            columns: ["parent_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "student_parents_student_id_fkey"
+            columns: ["student_id"]
+            isOneToOne: false
+            referencedRelation: "students"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      students: {
+        Row: {
+          address: string | null
+          admission_number: string | null
+          class_id: string | null
+          created_at: string
+          date_of_birth: string | null
+          emergency_contact_name: string | null
+          emergency_contact_phone: string | null
+          enrollment_date: string
+          first_name: string
+          gender: string | null
+          id: string
+          last_name: string
+          notes: string | null
+          school_id: string
+          status: string
+          updated_at: string
+          user_id: string | null
+        }
+        Insert: {
+          address?: string | null
+          admission_number?: string | null
+          class_id?: string | null
+          created_at?: string
+          date_of_birth?: string | null
+          emergency_contact_name?: string | null
+          emergency_contact_phone?: string | null
+          enrollment_date?: string
+          first_name: string
+          gender?: string | null
+          id?: string
+          last_name: string
+          notes?: string | null
+          school_id: string
+          status?: string
+          updated_at?: string
+          user_id?: string | null
+        }
+        Update: {
+          address?: string | null
+          admission_number?: string | null
+          class_id?: string | null
+          created_at?: string
+          date_of_birth?: string | null
+          emergency_contact_name?: string | null
+          emergency_contact_phone?: string | null
+          enrollment_date?: string
+          first_name?: string
+          gender?: string | null
+          id?: string
+          last_name?: string
+          notes?: string | null
+          school_id?: string
+          status?: string
+          updated_at?: string
+          user_id?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "students_class_id_fkey"
+            columns: ["class_id"]
+            isOneToOne: false
+            referencedRelation: "classes"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "students_school_id_fkey"
+            columns: ["school_id"]
+            isOneToOne: false
+            referencedRelation: "schools"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       subjects: {
         Row: {
           code: string
