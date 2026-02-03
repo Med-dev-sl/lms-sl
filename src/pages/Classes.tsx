@@ -152,14 +152,14 @@ export default function Classes() {
                 <div className="space-y-2">
                   <Label htmlFor="section">Section (Optional)</Label>
                   <Select
-                    value={formData.section}
-                    onValueChange={(value) => setFormData({ ...formData, section: value })}
+                    value={formData.section || "none"}
+                    onValueChange={(value) => setFormData({ ...formData, section: value === "none" ? "" : value })}
                   >
                     <SelectTrigger>
                       <SelectValue placeholder="Select section" />
                     </SelectTrigger>
                     <SelectContent>
-                      <SelectItem value="">No Section</SelectItem>
+                      <SelectItem value="none">No Section</SelectItem>
                       {SECTIONS.map((section) => (
                         <SelectItem key={section} value={section}>Section {section}</SelectItem>
                       ))}
@@ -290,14 +290,14 @@ export default function Classes() {
               <div className="space-y-2">
                 <Label htmlFor="edit_section">Section (Optional)</Label>
                 <Select
-                  value={formData.section}
-                  onValueChange={(value) => setFormData({ ...formData, section: value })}
+                  value={formData.section || "none"}
+                  onValueChange={(value) => setFormData({ ...formData, section: value === "none" ? "" : value })}
                 >
                   <SelectTrigger>
                     <SelectValue placeholder="Select section" />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="">No Section</SelectItem>
+                    <SelectItem value="none">No Section</SelectItem>
                     {SECTIONS.map((section) => (
                       <SelectItem key={section} value={section}>Section {section}</SelectItem>
                     ))}

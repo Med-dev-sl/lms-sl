@@ -240,12 +240,12 @@ export default function Timetable() {
           <CardTitle className="text-lg">Filter by Class</CardTitle>
         </CardHeader>
         <CardContent>
-          <Select value={selectedClassId} onValueChange={setSelectedClassId}>
+          <Select value={selectedClassId || "all"} onValueChange={(value) => setSelectedClassId(value === "all" ? "" : value)}>
             <SelectTrigger className="w-full md:w-64">
               <SelectValue placeholder="All Classes" />
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value="">All Classes</SelectItem>
+              <SelectItem value="all">All Classes</SelectItem>
               {classes?.map((cls) => (
                 <SelectItem key={cls.id} value={cls.id}>{cls.name}</SelectItem>
               ))}
