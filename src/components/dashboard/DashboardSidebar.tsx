@@ -25,6 +25,7 @@ import {
   MessageSquare,
   CreditCard,
   Bell,
+  ClipboardCheck,
 } from 'lucide-react';
 import { useAuth } from '@/lib/auth';
 import { NavLink } from '@/components/NavLink';
@@ -47,6 +48,7 @@ const menuItems: Record<AppRole, { title: string; url: string; icon: React.Eleme
     { title: 'Classes', url: '/dashboard/classes', icon: BookOpen },
     { title: 'Subjects', url: '/dashboard/subjects', icon: FileText },
     { title: 'Timetable', url: '/dashboard/timetable', icon: Calendar },
+    { title: 'Attendance', url: '/dashboard/attendance', icon: ClipboardCheck },
     { title: 'Reports', url: '/dashboard/reports', icon: BarChart3 },
     { title: 'Fees', url: '/dashboard/fees', icon: CreditCard },
     { title: 'Settings', url: '/dashboard/settings', icon: Settings },
