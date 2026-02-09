@@ -58,7 +58,7 @@ const menuItems: Record<AppRole, { title: string; url: string; icon: React.Eleme
     { title: 'My Classes', url: '/dashboard/classes', icon: BookOpen },
     { title: 'Students', url: '/dashboard/students', icon: GraduationCap },
     { title: 'Assignments', url: '/dashboard/assignments', icon: FileText },
-    { title: 'Attendance', url: '/dashboard/attendance', icon: Calendar },
+    { title: 'Attendance', url: '/dashboard/attendance', icon: ClipboardCheck },
     { title: 'Messages', url: '/dashboard/messages', icon: MessageSquare },
     { title: 'Settings', url: '/dashboard/settings', icon: Settings },
   ],
