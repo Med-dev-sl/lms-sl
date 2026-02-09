@@ -10,6 +10,7 @@ import Classes from './Classes';
 import Subjects from './Subjects';
 import Timetable from './Timetable';
 import Students from './Students';
+import Attendance from './Attendance';
 
 export default function Dashboard() {
   const { user, isLoading, getPrimaryRole } = useAuth();
@@ -51,6 +52,7 @@ export default function Dashboard() {
               <Route path="subjects" element={<Subjects />} />
               <Route path="timetable" element={<Timetable />} />
               <Route path="students" element={<Students />} />
+              <Route path="attendance" element={<Attendance />} />
               {/* Placeholder routes for other sections */}
               <Route path="*" element={<DashboardContent role={role} />} />
             </Routes>
